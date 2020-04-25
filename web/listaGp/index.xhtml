@@ -1,0 +1,296 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style type="text/css">
+            .ui-diagram-element {   
+                width:8em; 
+                height:3em;     
+                line-height:3em;
+                text-align: center;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+                border-radius: 4px;
+                border: 1px solid transparent;
+                background-color: #98AFC7;
+                color: #ffffff;
+            }
+
+            .ui-diagram-success {
+                background-color: #9CB071;
+                color: #ffffff;
+                border-color: #7ab02c;
+            }
+
+            .ui-diagram-fail {
+                background-color: #C34A2C;
+                color: #ffffff;
+            }
+
+            .flow-label {
+                font-size: 24px;
+                font-weight: bold;
+                color: #816A51;
+            }
+        </style>
+    </h:head>
+   <h:body>
+        <p:growl id="grwlErrores"/>
+        <h:form id="frmPiloto">
+            <p:commandButton value="Volver" action="inicio" />
+            <p:panel header="CARRERA MOTO GP - Total Pilotos #{SesionMotoGP.listaPilotos.contarNodos()}">
+                <p:panelGrid columns="2">
+                    <p:panel header="Datos Piloto">
+                           <p:outputLabel value="Registro de los pilotos "/>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel for="txtNombre" value="Nombre"/>
+                            <p:inputText id="txtNombre" required="true" disabled="#{SesionMotoGP.deshabilitarFormulario}"
+                                         value="#{SesionMotoGP.piloto.nombre}"   />
+                            <p:outputLabel value="Género"/>
+                            <p:selectOneMenu value="#{SesionMotoGP.piloto.genero}"
+                                             disabled="#{SesionMotoGP.deshabilitarFormulario}">
+                                <f:selectItem itemLabel="Hombre" itemValue="true"/>
+                                <f:selectItem itemLabel="Mujer" itemValue="false"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Estado"/>
+                            <p:selectOneMenu value="#{SesionMotoGP.piloto.estado}"
+                                             disabled="#{SesionMotoGP.deshabilitarFormulario}">
+                                <f:selectItem itemLabel="Activo" itemValue="true"/>
+                                <f:selectItem itemLabel="Inactivo" itemValue="false"/>
+                            </p:selectOneMenu>
+                            
+                            <p:outputLabel value="Desea ir al inicio inicio"/>
+                            <p:selectOneMenu value="#{SesionMotoGP.alInicio}" disabled="#{SesionMotoGP.deshabilitarFormulario}">
+                                <f:selectItem itemLabel="SI" itemValue="1"/>
+                                <f:selectItem itemLabel="NO" itemValue="0"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                           
+                             <p:outputLabel value="Registro de motos "/>
+                             <p:panelGrid columns="2">
+                                 <p:outputLabel value="Marca"/>
+                             <p:selectOneMenu value="#{SesionMotoGP.piloto.marca}"
+                                             disabled="#{SesionMotoGP.deshabilitarFormulario}">
+                                <f:selectItem itemLabel="BMW" itemValue="true"/>
+                                <f:selectItem itemLabel="Kawazaki" itemValue="false"/>
+                            </p:selectOneMenu>
+                             <p:outputLabel for="spCilindraje" value="Cilindraje"/>
+                             <p:spinner id="spCilindraje" required="true" min="1990" max="2000" disabled="#{SesionMotoGP.deshabilitarFormulario}"
+                                        value="#{SesionMotoGP.piloto.cilindraje}"/>
+                              <p:outputLabel value="Color"/>
+                              <p:selectOneMenu value="#{SesionMotoGP.piloto.color}"
+                                             disabled="#{SesionMotoGP.deshabilitarFormulario}">
+                                <f:selectItem itemLabel="amarillo" itemValue="true"/>
+                                <f:selectItem itemLabel="verde" itemValue="false"/>
+                            </p:selectOneMenu>
+                               <p:outputLabel for="spModelo" value="Modelo"/>
+                             <p:spinner id="spModelo" required="true" min="2015" max="2020" disabled="#{SesionMotoGP.deshabilitarFormulario}"
+                                        value="#{SesionMotoGP.piloto.modelo}"/>
+                             </p:panelGrid>
+                           
+                        <p:commandButton value="Guardar Piloto" update="frmPiloto,:grwlErrores"
+                                         action="#{SesionMotoGP.guardarPiloto()}" disabled="#{SesionMotoGP.deshabilitarFormulario}"/>
+
+                        <p:commandButton value="Nuevo Piloto" update="frmPiloto" action="#{SesionMotoGP.habilitarFormulario()}"
+                                         disabled="#{!SesionMotoGP.deshabilitarFormulario}"
+                                         />
+                        <p:commandButton value="Invertir"  update="frmPiloto,:grwlErrores"
+                                         action="#{SesionMotoGP.invertirLista()}"
+                                         />
+                        <p:panelGrid columns="4">
+                            <p:commandButton value="Primero" action="#{SesionMotoGP.irPrimero()}" 
+                                             update="frmPiloto"/>
+                            <p:commandButton value="Anterior" action="#{SesionMotoGP.irAnterior()}"
+                                             update="frmPiloto"/>
+                            <p:commandButton value="Siguiente" action="#{SesionMotoGP.irSiguiente()}"
+                                             update="frmPiloto"/>       
+                            <p:commandButton value="Último" action="#{SesionMotoGP.irUltimo()}" 
+                                             update="frmPiloto"/>                           
+
+                        </p:panelGrid>
+                        <p:outputLabel value="Código a eliminar: "/>
+                        <p:inputText value="#{SesionMotoGP.codigoEliminar}" maxlength="4" size="10"/>
+                        <p:commandButton value="Eliminar" action="#{SesionMotoGP.eliminarPiloto()}" 
+                                         update="frmPiloto,:grwlErrores"
+                                         />
+                    </p:panel>
+
+                </p:panelGrid>
+
+                
+                
+                <p:panel header="Gráfico" id="pnlVista" style="width: 100%;">
+                    <p:commandButton value="#{SesionMotoGP.textoVista}" 
+                                     action="#{SesionMotoGP.cambiarVistaPilotos()}"
+                                     update="pnlVista"/>
+                    
+                        <p:outputLabel value="ESTADO DE LA CARRERA "/>
+                        
+                    <p:dataTable rendered="#{SesionMotoGP.textoVista=='Gráfico'}"  value="#{SesionMotoGP.listadoPilotos}" var="pil">
+                        <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Posicion"/>
+                            </f:facet>
+                            <p:outputLabel value="#{pil.codigo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Nombre"/>
+                            </f:facet>
+                            <p:outputLabel value="#{pil.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Género"/>
+                            </f:facet>
+                            <p:outputLabel rendered="#{inf.genero}"  value="Hombre"/>
+                            <p:outputLabel rendered="#{!inf.genero}"  value="Mujer"/>                                
+                        </p:column>
+                          <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Estado"/>
+                            </f:facet>
+                            <p:outputLabel rendered="#{pil.estado}"  value="Activo"/>
+                            <p:outputLabel rendered="#{!pil.estado}"  value="Inactivo"/>                                
+                        </p:column>
+                          <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Marca"/>
+                            </f:facet>
+                            <p:outputLabel rendered="#{pil.marca}"  value="BMW"/>
+                            <p:outputLabel rendered="#{!pil.marca}"  value="Kawazaki"/>                                
+                        </p:column>
+                         <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Cilindraje"/>
+                            </f:facet>
+                             <p:outputLabel value="#{pil.cilindraje}"/>
+                        </p:column>
+                          <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Color"/>
+                            </f:facet>
+                            <p:outputLabel rendered="#{pil.color}"  value="amarillo"/>
+                            <p:outputLabel rendered="#{!pil.color}"  value="verde"/>                                
+                        </p:column>
+                         <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Modelo"/>
+                            </f:facet>
+                             <p:outputLabel value="#{pil.modelo}"/>
+                        </p:column>
+                        
+                    </p:dataTable>
+
+                    <p:diagram id="diagrama" rendered="#{SesionMotoGP.textoVista=='Tabla'}" value="#{SesionMotoGP.model}" style="height:600px; width: 100%;" styleClass="ui-widget-content" />
+
+                    <p:remoteCommand name="elementClickRight" 
+                                     actionListener="#{SesionMotoGP.onClickRight()}" 
+                                     >
+                    </p:remoteCommand>
+
+                    <script>
+                        $(document).ready(function () {
+                            $('.ui-diagram > .ui-diagram-element').mousedown(function (pilo) {
+                                if (pilo.which === 3) {
+                                    elementClickRight([{
+                                            name: 'elementId',
+                                            value: pilo.target.id
+                                        }]);
+                                }
+                            });
+                        });
+                    </script>
+
+                    <p:contextMenu id="mnuDiagrama" for="diagrama"
+                                   targetFilter=".ui-diagram-element"
+                                   >
+                        <p:menuitem value="Ver datos" 
+                                    action="#{SesionMotoGP.obtenerPilotoDiagrama()}" 
+                                    update="panelPiloto"                                    
+                                    oncomplete="PF('dlgDatosPiloto').show();" />
+                        <p:menuitem value="Eliminar" update="panelEliminarPiloto" 
+                                    action="#{SesionMotoGP.obtenerPilotoDiagrama()}"
+                                    oncomplete="PF('dlgEliminarPiloto').show();"/> 
+                        <p:menuitem value="Enviar al final" update="pnlVista"                                    
+                                    action="#{SesionMotoGP.enviarAlFinal()}"/>
+                        <p:menuitem value="Enviar al inicio" update="pnlVista"                                    
+                                    action="#{SesionMotoGP.enviarAlInicio()}"                                    
+                                    />
+                        <p:menuitem value="Adelantar/Perder Posición"/>
+                    </p:contextMenu>
+                </p:panel>
+            </p:panel>
+            
+            <p:dialog id="modalPiloto" header="Datos Piloto" widgetVar="dlgDatosPiloto" 
+                      modal="true" height="100">
+                <p:panel id="panelPiloto">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Posicion:" />
+                        <h:outputText value="#{SesionMotoGP.pilotoDiagrama.codigo}" />
+                        <h:outputText value="Nombre:" />
+                        <h:outputText value="#{SesionMotoGP.pilotoDiagrama.nombre}" />
+                        <h:outputText value="Género:" />
+                        <h:outputText rendered="#{SesionMotoGP.pilotoDiagrama.genero}" value="Hombre" />
+                        <h:outputText rendered="#{!SesionMotoGP.pilotoDiagrama.genero}" value="Mujer" />
+                        <h:outputText value="Estado" />
+                        <h:outputText rendered="#{SesionMotoGP.pilotoDiagrama.estado}" value="Activo" />
+                        <h:outputText rendered="#{!SesionMotoGP.pilotoDiagrama.estado}" value="Inactivo" />
+                         <h:outputText value="Datos moto:" />
+                         <br/>
+                        <h:outputText value="Marca:" />
+                        <h:outputText rendered="#{SesionMotoGP.pilotoDiagrama.marca}" value="BMW" />
+                        <h:outputText rendered="#{!SesionMotoGP.pilotoDiagrama.marca}" value="Kawazaki" />
+                        <h:outputText value="Cilindraje:" />
+                        <h:outputText value="#{SesionMotoGP.pilotoDiagrama.cilindraje}" />
+                        <h:outputText value="Color:" />
+                        <h:outputText rendered="#{SesionMotoGP.pilotoDiagrama.color}" value="amarillo" />
+                        <h:outputText rendered="#{!SesionMotoGP.pilotoDiagrama.color}" value="verde" />
+                        <h:outputText value="Modelo:" />
+                        <h:outputText value="#{SesionMotoGP.pilotoDiagrama.modelo}" />
+                    </h:panelGrid>
+                </p:panel>
+            </p:dialog> 
+            
+            
+            <p:dialog id="modalEliminarCorredor" header="Eliminar Piloto" widgetVar="dlgEliminarPiloto" 
+                      modal="true" height="100">
+                <p:panel id="panelEliminarPiloto">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Posicion:" />
+                        <h:outputText value="#{SesionMotoGP.pilotoDiagrama.codigo}" />
+                        <h:outputText value="Nombre:" />
+                        <h:outputText value="#{SesionMotoGP.pilotoDiagrama.nombre}" />
+                        <h:outputText value="Género:" />
+                        <h:outputText rendered="#{SesionMotoGP.pilotoDiagrama.genero}" value="Hombre" />
+                        <h:outputText rendered="#{!SesionMotoGP.pilotoDiagrama.genero}" value="Mujer" />
+                        <h:outputText value="Estado" />
+                        <h:outputText rendered="#{SesionMotoGP.pilotoDiagrama.estado}" value="Activo" />
+                        <h:outputText rendered="#{!SesionMotoGP.pilotoDiagrama.estado}" value="Inactivo" />
+                         <h:outputText value="Datos moto:" />
+                         <br/>
+                        <h:outputText value="Marca:" />
+                        <h:outputText rendered="#{SesionMotoGP.pilotoDiagrama.marca}" value="BMW" />
+                        <h:outputText rendered="#{!SesionMotoGP.pilotoDiagrama.marca}" value="Kawazaki" />
+                        <h:outputText value="Cilindraje:" />
+                        <h:outputText value="#{SesionMotoGP.pilotoDiagrama.cilindraje}" />
+                        <h:outputText value="Color:" />
+                        <h:outputText rendered="#{SesionMotoGP.pilotoDiagrama.color}" value="amarillo" />
+                        <h:outputText rendered="#{!SesionMotoGP.pilotoDiagrama.color}" value="verde" />
+                        <h:outputText value="Modelo:" />
+                        <h:outputText value="#{SesionMotoGP.pilotoDiagrama.modelo}" />
+                    </h:panelGrid>
+                    <p:commandButton value="Aceptar" action="#{SesionMotoGP.eliminarPilotoEnDiagrama()}" 
+                                     oncomplete="PF('dlgEliminarPiloto').hide();" update="pnlVista"/>
+                    <p:commandButton value="Cancelar" onclick="PF('dlgEliminarPiloto').hide();"/>
+                </p:panel>
+            </p:dialog> 
+        </h:form>
+
+    </h:body>
+</html>
+
+
