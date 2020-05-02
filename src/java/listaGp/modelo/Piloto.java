@@ -17,12 +17,12 @@ public class Piloto implements Serializable{
     private short codigo;
     private boolean genero;
     private boolean estado;
-    private String marca;
+    private boolean marca;
     private int cilindraje;
-    private String color;
+    private boolean color;
     private int modelo;
 
-    public Piloto(String nombre, short codigo, boolean genero, boolean estado, String marca, int cilindraje, String color, int modelo) {
+    public Piloto(String nombre, short codigo, boolean genero, boolean estado, boolean marca, int cilindraje, boolean color, int modelo) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.genero = genero;
@@ -65,11 +65,11 @@ public class Piloto implements Serializable{
         this.estado = estado;
     }
 
-    public String getMarca() {
+    public boolean getMarca() {
         return marca;
     }
 
-    public void setMarca(String marca) {
+    public void setMarca(boolean marca) {
         this.marca = marca;
     }
 
@@ -81,11 +81,11 @@ public class Piloto implements Serializable{
         this.cilindraje = cilindraje;
     }
 
-    public String getColor() {
+    public boolean getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(boolean color) {
         this.color = color;
     }
 

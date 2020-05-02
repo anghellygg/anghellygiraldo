@@ -9,6 +9,7 @@ import com.listase.excepciones.InfanteExcepcion;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.metamodel.SingularAttribute;
 
 /**
  *
@@ -262,4 +263,36 @@ es el código a eliminar digo que cabeza=cabeza.siguiente si,no llamó al ayudan
         throw new InfanteExcepcion("La lista de infantes está vacía");
     }
     
+//    public Infante obtenerInfanteMenor(int edad ) throws InfanteExcepcion
+//    {
+//        int min = 0;
+//        int a = 0;
+//        if(cabeza !=null)
+//        {
+//            if(cabeza.getDato().getEdad()==edad)
+//            {                
+//                return cabeza.getDato();
+//            }
+//            else
+//            {
+//                Nodo temp=cabeza;
+//                while(temp!=null)
+//                {
+//                    if(temp.getDato().getEdad()== edad)
+//                    {                                                
+//                        return temp.getDato();
+//                    }
+//                    temp = temp.getSiguiente();
+//                    a= temp.getSiguiente().getDato().getEdad();
+//                }
+//            }
+//            min = (Math.min(cabeza.getDato().getEdad(),a));
+//        }
+//        throw new InfanteExcepcion("La lista de infantes está vacía");
+//    }
+
+   
+    
+    
+     
 }

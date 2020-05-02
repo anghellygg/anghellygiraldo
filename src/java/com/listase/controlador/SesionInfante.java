@@ -5,6 +5,7 @@
  */
 package com.listase.controlador;
 
+import static com.listaenlazada.modelo.Infante_.edad;
 import com.listase.excepciones.InfanteExcepcion;
 import com.listase.modelo.Infante;
 import com.listase.modelo.ListaSE;
@@ -57,6 +58,10 @@ public class SesionInfante implements Serializable {
     private short infanteSeleccionado;
     
     private Infante infanteDiagrama;
+    
+    private int menorEncontrado;
+    
+    private int infanteMenorEncontrado;
     
     /**
      * Creates a new instance of SesionInfante
@@ -124,6 +129,22 @@ public class SesionInfante implements Serializable {
 
     public void setControlLocalidades(ControladorLocalidades controlLocalidades) {
         this.controlLocalidades = controlLocalidades;
+    }
+
+    public int getMenorEncontrado() {
+        return menorEncontrado;
+    }
+
+    public void setMenorEncontrado(int menorEncontrado) {
+        this.menorEncontrado = menorEncontrado;
+    }
+
+    public int getInfanteMenorEncontrado() {
+        return infanteMenorEncontrado;
+    }
+
+    public void setInfanteMenorEncontrado(int infanteMenorEncontrado) {
+        this.infanteMenorEncontrado = infanteMenorEncontrado;
     }
      
     
@@ -215,7 +236,7 @@ public class SesionInfante implements Serializable {
     {
         //obtiene el consecutivo
         infante.setCodigo((short)(listaInfantes.contarNodos()+1));
-        if(alInicio.compareTo("1")==0)
+        if(alInicio.compareTo("1")==1)
         {
             listaInfantes.adicionarNodoAlInicio(infante);
         }
@@ -425,5 +446,20 @@ public class SesionInfante implements Serializable {
             }
             JsfUtil.addErrorMessage("El código a eliminar "+infanteSeleccionado+ " no es válido");
         } 
-    
+ 
+//    public void obtenerInfanteMenor()
+//    {
+//      for(int i=0; 1<= infante.getEdad();i++){
+//          menorEncontrado=listaInfantes.obtenerInfanteMenor(edad);
+//          irPrimero();
+//          
+//          if(menorEncontrado>infante.getEdad()){
+//              menorEncontrado= infante.getEdad();
+//          }
+//          
+//      }
+//        System.out.println("Infante "+menorEncontrado +" eliminado.");
+//       }
+//    
+//    
 }

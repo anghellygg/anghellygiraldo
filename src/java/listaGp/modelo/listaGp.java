@@ -134,26 +134,6 @@ public class listaGp implements Serializable{
         
     }
     
-    public void invertirLista()
-    {
-        if(cabeza!=null)
-        {
-            //Crear una lista temporal la cabeza de la lista temporal está vacía
-            listaGp listaTemporal = new listaGp();
-            // Llamo un ayudante
-            NodoGp temp= cabeza;
-            //Recorro la lista de principio a fin
-            while(temp!=null)
-            {         
-               //Parado en cada nodo , se extrae la información y se
-                // envía a la otra lista al inicio
-                listaTemporal.adicionarNodoAlInicio(temp.getDato());
-                temp=temp.getSiguiente();                
-            }   
-            //Igualo la cabeza de mi lista principal a la cabeza de la lista temporal
-            cabeza= listaTemporal.getCabeza();
-        }
-    }
     
     public short contarPilotosxGenero(boolean genero)
     {

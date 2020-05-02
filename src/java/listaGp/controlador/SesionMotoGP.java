@@ -65,7 +65,8 @@ public class SesionMotoGP implements Serializable{
          
         listaPilotos = new listaGp();        
         //LLenado de la bds
-        listaPilotos.adicionarNodo(new Piloto("camila", codigoEliminar, deshabilitarFormulario, deshabilitarFormulario, alInicio, codigoEliminar, alInicio, codigoEliminar));
+        listaPilotos.adicionarNodo(new Piloto("camila", (short)1, true, false, true, (int)1999, true, (int)2020));
+        listaPilotos.adicionarNodo(new Piloto("sebastian", (short)2, true, false, false, (int)1998, true, (int)2019));
         ayudante = listaPilotos.getCabeza();
         piloto = ayudante.getDato();     
         //Me llena el objeto List para la tabla
@@ -207,7 +208,7 @@ public class SesionMotoGP implements Serializable{
     public void habilitarFormulario()
     {
         deshabilitarFormulario=false;
-        piloto = new Piloto(alInicio, codigoEliminar, deshabilitarFormulario, deshabilitarFormulario, alInicio, codigoEliminar, alInicio, codigoEliminar);
+        piloto = new Piloto(alInicio, codigoEliminar, deshabilitarFormulario, deshabilitarFormulario, deshabilitarFormulario, codigoEliminar, deshabilitarFormulario, codigoEliminar);
     }
     
     public void irAnterior()
@@ -239,7 +240,7 @@ public class SesionMotoGP implements Serializable{
         }
         else
         {
-            piloto = new Piloto(alInicio, codigoEliminar, deshabilitarFormulario, deshabilitarFormulario, alInicio, codigoEliminar, alInicio, codigoEliminar);
+            piloto = new Piloto(alInicio, codigoEliminar, deshabilitarFormulario, deshabilitarFormulario, deshabilitarFormulario, codigoEliminar, deshabilitarFormulario, codigoEliminar);
         }
         listadoPilotos = listaPilotos.obtenerListaPilotos();
         pintarLista();
@@ -268,12 +269,6 @@ public class SesionMotoGP implements Serializable{
         {
             textoVista = "Tabla";
         }
-    }
-    
-    public void invertirLista(){
-        //Invierte la lista
-        listaPilotos.invertirLista();
-        irPrimero();
     }
     
     
@@ -358,22 +353,6 @@ public class SesionMotoGP implements Serializable{
         }
     }
     
-    public void eliminarPilotoEnDiagrama()
-    {
-       
-            //llamo el eliminar de la lista
-            try{
-                listaPilotos.eliminarPiloto(pilotoSeleccionado);
-                irPrimero();
-                JsfUtil.addSuccessMessage("Piloto "+pilotoSeleccionado +" eliminado.");
-            }
-            catch(PilotoExcepcion e)
-            {
-                JsfUtil.addErrorMessage(e.getMessage());
-            }
-            JsfUtil.addErrorMessage("El código a eliminar "+pilotoSeleccionado+ " no es válido");
-        }
-        
     
     public void obtenerPilotoDiagrama()
     {
@@ -383,38 +362,6 @@ public class SesionMotoGP implements Serializable{
             JsfUtil.addErrorMessage(ex.getMessage());
         }
     }
-    
-    public void enviarAlFinal()
-    {
-        try {
-            ///Buscar el infante y guardar los datos en una variable temporal
-            Piloto pilTemporal = listaPilotos.obtenerPilotos(pilotoSeleccionado);
-            // Eliminar el nodo
-            listaPilotos.eliminarPiloto(pilotoSeleccionado);
-            // Adicionarlo al final
-            listaPilotos.adicionarNodo(pilTemporal);
-            
-            pintarLista();
-        } catch (PilotoExcepcion ex) {
-            JsfUtil.addErrorMessage(ex.getMessage());
-        }
-    }
-    
-    public void enviarAlInicio()
-    {
-        try {
-            ///Buscar el infante y guardar los datos en una variable temporal
-            Piloto pilTemporal = listaPilotos.obtenerPilotos(pilotoSeleccionado);
-            // Eliminar el nodo
-            listaPilotos.eliminarPiloto(pilotoSeleccionado);
-            // Adicionarlo al inicio
-            listaPilotos.adicionarNodoAlInicio(pilTemporal);
-            
-            pintarLista();
-        } catch (PilotoExcepcion ex) {
-            JsfUtil.addErrorMessage(ex.getMessage());
-        }
-    }
- 
+   
    
 }
