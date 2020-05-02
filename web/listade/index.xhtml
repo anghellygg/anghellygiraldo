@@ -193,14 +193,13 @@
                                     update="panelInfante"                                    
                                     oncomplete="PF('dlgDatosInfante').show();" />
                         <p:menuitem value="Eliminar" update="panelEliminarInfanteDE" 
-                                    action="#{sesionInfanteDE.obtenerInfanteDiagrama()}"
+                                    action="#{sesionInfanteDE.eliminarInfanteEnDiagrama()}"
                                     oncomplete="PF('dlgEliminarInfanteDE').show();"/>
                         <p:menuitem value="Enviar al final" update="pnlVista"                                    
                                     action="#{sesionInfanteDE.enviarAlFinal()}"/>
                         <p:menuitem value="Enviar al inicio" update="pnlVista"                                    
                                     action="#{sesionInfanteDE.enviarAlInicio()}"                                    
                                     />
-                        <p:menuitem value="Adelantar/Perder Posición"/>
                     </p:contextMenu>
                 </p:panel>
             </p:panel>
@@ -233,6 +232,8 @@
                         <h:outputText value="Género:" />
                         <h:outputText rendered="#{sesionInfanteDE.infanteDiagrama.genero}" value="Masculino" />
                         <h:outputText rendered="#{!sesionInfanteDE.infanteDiagrama.genero}" value="Femenino" />
+                        <h:outputText value="Edad:" />
+                        <h:outputText value="#{sesionInfanteDE.infanteDiagrama.edad}" />
                     </h:panelGrid>
                     <p:commandButton value="Aceptar" action="#{sesionInfanteDE.eliminarInfanteEnDiagrama()}" 
                                      oncomplete="PF('dlgEliminarInfanteDE').hide();" update="pnlVista"/>

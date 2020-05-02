@@ -191,14 +191,14 @@
                                     update="panelInfante"                                    
                                     oncomplete="PF('dlgDatosInfante').show();" />
                          <p:menuitem value="Eliminar" update="panelEliminarInfante" 
-                                    action="#{SesionMotoGP.obtenerPilotoDiagrama()}"
+                                     action="#{sesionInfante.eliminarInfanteEnDiagrama()}"
                                     oncomplete="PF('dlgEliminarInfante').show();"/> 
                         <p:menuitem value="Enviar al final" update="pnlVista"                                    
                                     action="#{sesionInfante.enviarAlFinal()}"/>
                         <p:menuitem value="Enviar al inicio" update="pnlVista"                                    
                                     action="#{sesionInfante.enviarAlInicio()}"                                    
                                     />
-                        <p:menuitem value="Adelantar/Perder Posición"/>
+                       
                     </p:contextMenu>
                 </p:panel>
             </p:panel>
@@ -231,6 +231,8 @@
                         <h:outputText value="Género:" />
                         <h:outputText rendered="#{sesionInfante.infanteDiagrama.genero}" value="Masculino" />
                         <h:outputText rendered="#{!sesionInfante.infanteDiagrama.genero}" value="Femenino" />
+                        <h:outputText value="Edad:" />
+                        <h:outputText value="#{sesionInfante.infanteDiagrama.edad}" />
                     </h:panelGrid>
                     <p:commandButton value="Aceptar" action="#{sesionInfante.eliminarInfanteEnDiagrama()}" 
                                      oncomplete="PF('dlgEliminarInfante').hide();" update="pnlVista"/>

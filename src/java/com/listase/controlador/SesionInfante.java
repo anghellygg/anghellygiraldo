@@ -433,8 +433,6 @@ public class SesionInfante implements Serializable {
     
    public void eliminarInfanteEnDiagrama()
     {
-       
-            //llamo el eliminar de la lista
             try{
                 listaInfantes.eliminarInfante(infanteSeleccionado);
                 irPrimero();
@@ -444,7 +442,7 @@ public class SesionInfante implements Serializable {
             {
                 JsfUtil.addErrorMessage(e.getMessage());
             }
-            JsfUtil.addErrorMessage("El código a eliminar "+infanteSeleccionado+ " no es válido");
+            JsfUtil.addErrorMessage("infante a eliminar "+infanteSeleccionado+ " no es válido");
         } 
  
 //    public void obtenerInfanteMenor()
